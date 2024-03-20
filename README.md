@@ -1,2 +1,2 @@
-# TeamFonts
-some fonts of team
+# 团队字体
+仅用于页面嵌入
