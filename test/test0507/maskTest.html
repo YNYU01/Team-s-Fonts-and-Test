@@ -1,0 +1,96 @@
+<style>
+    :root {
+    --maskUrl1:url('https://raw.githubusercontent.com/YNYU01/Team-s-Fonts-and-Test/main/img/szth-alpha-action.png');
+    --maskUrl2:url('https://raw.githubusercontent.com/YNYU01/Team-s-Fonts-and-Test/main/img/szth-alpha%20.png');
+    }
+    
+    .maskimage1 {
+        -webkit-mask: var(--maskUrl1);
+        mask: var(--maskUrl1);
+    }
+    
+    .maskimage2 {
+        -webkit-mask: var(--maskUrl2);
+        mask: var(--maskUrl2);
+        opacity: 0;
+    }
+
+    .load1{
+        animation:change 2s forwards;
+    }
+    
+    @keyframes change{
+        0%{
+            opacity: 0;
+        }
+        100%{
+            opacity: 1;
+        }
+    }
+</style>
+
+<div id="viewport" style="height: 330px; width: 1400px; background-color: rgb(209, 189, 163); ">
+    
+    <div style="width: 2400px; height: 330px; display: flex; transform: scale(0.5); transform-origin: left top;justify-content: space-between;padding:0px 200px 0px 200px;">
+        
+        <div style="width: 750px; height: 660px; position: relative;">    
+            <div class="load1" style="width: 750px; height: 506px; background-image:url('img/奖励-1.png'); position: absolute; z-index: 3;margin-top: 40px;">
+            </div>
+            <div class="maskimage1 " id="maskimage1" style="width: 750px; height: 660px;  background-color: red; background-image:url('img/bg-场次-低级场.png'); position: absolute; z-index: 2;">
+            </div>
+            <div class="maskimage2" id="maskimage2" style="width: 750px; height: 660px;  background-color: red; background-image:url('img/bg-场次-低级场.png'); position: absolute; z-index: 1;">
+            </div>
+        </div>
+        <div style="width: 750px; height: 660px; position: relative;">
+            <div class="load1" style="width: 750px; height: 506px; background-image:url('img/奖励-2.png'); position: absolute; z-index: 3;margin-top: 40px;"></div>
+            <div class="maskimage1 " id="maskimage3" style="width: 750px; height: 660px;  background-color: red; background-image:url('img/bg-场次-中级场.png'); position: absolute; z-index: 2;">
+            </div>
+            <div class="maskimage2" id="maskimage4" style="width: 750px; height: 660px;  background-color: red; background-image:url('img/bg-场次-中级场.png'); position: absolute; z-index: 1;">
+            </div>
+        </div>
+        <div style="width: 750px; height: 660px; position: relative;">
+            <div class="load1" style="width: 750px; height: 506px; background-image:url('img/奖励-3.png'); position: absolute; z-index: 3;margin-top: 40px;"></div>
+            <div class="maskimage1 " id="maskimage5" style="width: 750px; height: 660px;  background-color: red; background-image:url('img/bg-场次-高级场.png'); position: absolute; z-index: 2;">
+            </div>
+            <div class="maskimage2" id="maskimage6" style="width: 750px; height: 660px;  background-color: red; background-image:url('img/bg-场次-高级场.png'); position: absolute; z-index: 1;">
+            </div>
+        </div>
+    </div>
+     
+</div>
+ 
+<button onclick="load()">重新加载</button>
+    
+<script>
+
+    window.onload = function(){
+        add()                 
+    }
+    
+    function add(){
+        setTimeout( function(){             
+            var object1 = document.getElementById('maskimage1');
+            var object2 = document.getElementById('maskimage2');
+            object1.style.opacity = "0";
+            object2.style.opacity = "1";                                       
+        }, 2000 );
+        setTimeout( function(){             
+            var object1 = document.getElementById('maskimage3');
+            var object2 = document.getElementById('maskimage4');
+            object1.style.opacity = "0";
+            object2.style.opacity = "1";                                       
+        }, 2000 );
+        setTimeout( function(){             
+            var object1 = document.getElementById('maskimage5');
+            var object2 = document.getElementById('maskimage6');
+            object1.style.opacity = "0";
+            object2.style.opacity = "1";                                       
+        }, 2000 );
+        
+    }
+
+    function load(){
+        location.reload();
+    }
+
+</script>
