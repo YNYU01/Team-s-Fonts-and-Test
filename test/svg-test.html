@@ -1,11 +1,95 @@
+
 <style>
+    @font-face {
+    font-family: 'FZJinLS-B-GB';
+    src: url('font/方正粗金陵简体/方正粗金陵简体.ttf') format('truetype');
+}
+
     :root{
-        --w:430px;
+        --w:150px;
         --h:150px;
+        --mainColor:#726c8b;
+        --boxBod:#ffffff;
+        --boxBak:#1c1c1c;
+        --liColor1:#b85e5e;
     }
     body{
         background-color: rgb(78, 78, 78);
-        font-family:FZJinLS-B-GB,Arial, Helvetica, sans-serif
+        background-image: url('https://raw.githubusercontent.com/YNYU01/Team-s-Fonts-and-Test/main/img/bg-cl121026.png');
+        background-size: cover;
+        font-family:'FZJinLS-B-GB',FZJinLS-B-GB,Arial, Helvetica, sans-serif
+    }
+
+    
+    .star-sky {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    .star-sky::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(rgb(190, 199, 255), transparent 1%),
+                    radial-gradient(rgba(206, 208, 254, 0.666), transparent 4%);
+        background-size: 400px 400px;
+        background-position: 0 0, 200px 200px;
+        animation: twinkling 10s linear infinite;
+    }
+    
+    @keyframes twinkling {
+        0% { 
+            opacity: 1;
+            background-position: 0 0, 200px 200px;
+        }
+        50%{
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+            background-position: 100px 100px, 400px 400px;
+        }
+    }
+
+    .star-skys {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    .star-skys::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(rgb(184, 184, 255), transparent 2%), 
+                    radial-gradient(rgb(146, 228, 255), transparent 1%);
+        background-size: 200px 200px;
+        background-position: 80px 80px, 100px 100px;
+        transform: rotate(80deg);
+        animation: twinkling2 10s linear infinite;
+    }
+    
+    @keyframes twinkling2 {
+        0% { 
+            opacity: 0;
+            background-position: 80px 80px, 200px 200px;
+        }
+        50%{
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            background-position: 160px 160px, 400px 400px;
+        }
     }
     .box-svg{
         width: var(--w);
@@ -51,8 +135,24 @@
         color: #F1E1CE; 
         margin-top: 8px;
         font-size: 24px; 
-        text-shadow: 0 0 10px rgba(255, 196, 125, 0.48); 
+        text-shadow: 0 0 10px rgba(255, 196, 125, 0.48);
         text-align: center;
+        animation: light 4s linear infinite;
+    }
+
+    @keyframes light {
+        0%{
+            color: #f4e0c8; 
+            text-shadow: 0 0 0px rgba(255, 196, 125, 0.48); 
+        }
+        50%{
+            color: #F1E1CE; 
+            text-shadow: 0 0 20px rgba(255, 196, 125, 0.48),0 0 4px rgba(196, 73, 24, 0.821); 
+        }
+        100%{
+            color: #f4e0c8; 
+            text-shadow: 0 0 0px rgba(255, 196, 125, 0.48); 
+        }
     }
 
      /* 隐藏range控件默认样式 */
@@ -60,7 +160,7 @@
         -webkit-appearance: none;
         appearance: none;
         background-color: transparent;
-        width: 120px;
+        width: 80px;
     }
  
     /* 定义range控件轨道的样式 */
@@ -82,59 +182,56 @@
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background-color: #726c8b;
-        border: 1px solid #ffffff;
+        background-color: var(--mainColor);
+        border: 1px solid var(--boxBod);
         margin-top: -8px;
     }
+
+    .tags-chkbox{
+            position: relative;
+            display: block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid var(--boxBod);
+            cursor: pointer;
+        }
+
+    input[type="checkbox"]:checked + .tags-chkbox::before {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: var(--mainColor);
+        top: 3px;
+        left: 3px;
+    }
+
 </style>
 
-<div style="padding: 0 40px; color: #ffffff; margin-top: 10px;">
+<div style="padding: 0 30px; color: #ffffff; margin-top: 10px;">
     svg自适应底框实现:
 </div>
-<div style="padding: 0 40px; color: #ffffff;margin-top: 10px; display: flex; align-items: center; gap: 10px;">
+<div style="padding: 0 0 0 30px; color: #ffffff;margin-top: 10px; display: flex; align-items: center; gap: 4px;">
     <label for="slider">宽度</label>
-    <input type="range" min="100" max="420" value="420" id="slider" class="slider">
+    <input type="range" min="100" max="420" value="150" id="slider" class="slider">
     <div style="width: 20px;"></div>
     <label for="slider2">高度</label>
-    <input type="range" min="100" max="420" value="420" id="slider2" class="slider" >
-</div>
-<div style="position: relative; margin: 20px;">
-    <div id="box-0" class="box-svg" style="position: absolute; top:0px; opacity: 0;">
-        <svg id="svg-0" width="100%" height="100%"  fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g id="G1-0">
-                <rect id="WC-0" y="34"  width="100%" height="32" fill="#66006688"/>
-                <rect id="HC-0" x="34"  width="32" height="100%" fill="#00666688" />
-                <path id="LT-0" x="0" y="0" d="M0 35V10C5.52285 10 10 5.52285 10 0H35V35H0Z"fill="#4444aa88" />
-                <path id="RT-0" d="M100 35V10C94.4771 10 90 5.52285 90 0H65V35H100Z" fill="#4444aa88"/>
-                <path id="RB-0"d="M100 65H65V100H90C90 94.4771 94.4771 90 100 90V65Z"fill="#4444aa88" />
-                <path id="LB-0" d="M35 100V65H0V90C5.52285 90 10 94.4771 10 100H35Z"fill="#4444aa88" />
-            </g>
-            
-            <script type="text/javascript">
-                var box = document.getElementById('box-0')
-                var HC = document.getElementById('HC-0');
-                var WC = document.getElementById('WC-0');
-                var RT = document.getElementById('RT-0');
-                var LB = document.getElementById('LB-0');
-                var RB = document.getElementById('RB-0');
-                var w = box.offsetWidth - 100 ;//宽度拉伸差值 容器宽-svg初始宽
-                var h = box.offsetHeight - 100;//高度拉伸差值 容器高-svg初始高
-                var wf = box.offsetWidth - 68 ;//宽度填充值
-                var hf = box.offsetHeight - 68 ;//高度填充值
-                var a ='translate(' + w  +',0)';//向右偏移量
-                var b ='translate(0,' + h + ')';//向下偏移量
-                var c = 'translate(' + w +',' + h + ')';//向对角线偏移量 
-                HC.setAttribute('width', wf);
-                WC.setAttribute('height', hf);
-                RT.setAttribute('transform', a);//右上角固定
-                LB.setAttribute('transform', b);//左下角固定
-                RB.setAttribute('transform', c);//右下角固定
-            </script>
-        </svg>
-        
+    <input type="range" min="100" max="420" value="150" id="slider2" class="slider" >
+    <div style="width: 20px;"></div>
+    <div style="display: flex; color: #ffffff;">
+        显示拉伸区域&nbsp;
+        <div style="width: 20px; height: 20px;">
+            <input type="checkbox" id="chkbox-0" style="display: none;" onchange="see()">
+            <label for="chkbox-0" class="tags-chkbox"> </label>
+        </div> 
     </div>
+</div>
 
-    <div id="box-1" class="box-svg">
+<div style="position: relative; margin: 20px;">
+
+    <div id="box-1" class="box-svg star-sky star-skys">
         <svg id="svg-1" width="100%" height="100%"  fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs> 
                 <radialGradient id="grad1-1" cx="50%" cy="100%" r="100%" fx="50%" fy="50%">
@@ -181,63 +278,33 @@
                     </g> 
                 </mask>
             </defs>
+            <!--rect id="frame2-1" x="5" y="5" width="90" height="90" fill="url(https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-whitemove/images/bg.gif)" /-->
             
             <rect x="0" y="0" width="100%" height="100%" fill="url(#grad2-1)" mask="url(#mask-basic2-1)"/>
             <rect id="frame2-1" x="5" y="5" width="90" height="90" fill="url(#grad1-1)" />
             <rect id="frame3-1" x="5" y="5" width="90" height="90" fill="url(#grad5-1)" />
             <rect id="frame1-1" x="5" y="5" width="90" height="90" fill="url(#grad3-1)" stroke="url(#grad4-1)" stroke-width="1"/>
-            <script type="text/javascript">
-                var box = document.getElementById('box-1');
-                var frame1 = document.getElementById('frame1-1');
-                var frame2 = document.getElementById('frame2-1');
-                var frame3 = document.getElementById('frame3-1');
-                var HC = document.getElementById('HC-1');
-                var WC = document.getElementById('WC-1');
-                var RT = document.getElementById('RT-1');
-                var LB = document.getElementById('LB-1');
-                var RB = document.getElementById('RB-1');
-                var HCL = document.getElementById('HCL-1');
-                var HCR = document.getElementById('HCR-1');
-                var WCB = document.getElementById('WCB-1');
-                var WCT = document.getElementById('WCT-1');
-                var RTS = document.getElementById('RTS-1');
-                var LBS = document.getElementById('LBS-1');
-                var RBS = document.getElementById('RBS-1');
-                var w = box.offsetWidth - 100 ;//宽度拉伸差值 容器宽-svg初始宽
-                var h = box.offsetHeight - 100;//高度拉伸差值 容器高-svg初始高
-                var wf = box.offsetWidth - 68 ;//宽度填充值
-                var hf = box.offsetHeight - 68 ;//高度填充值
-                var fw = box.offsetWidth - 10;
-                var fh = box.offsetHeight - 10;
-                var a ='translate(' + w  +',0)';//向右偏移量
-                var b ='translate(0,' + h + ')';//向下偏移量
-                var c = 'translate(' + w +',' + h + ')';//向对角线偏移量 
-                HC.setAttribute('width', wf);
-                WCT.setAttribute('width', wf);
-                WCB.setAttribute('width', wf);
-                WC.setAttribute('height', hf);
-                HCL.setAttribute('height', hf);
-                HCR.setAttribute('height', hf);
-                RT.setAttribute('transform', a);//右上角固定
-                RTS.setAttribute('transform', a);//右上角固定
-                LB.setAttribute('transform', b);//左下角固定
-                LBS.setAttribute('transform', b);//左下角固定
-                RB.setAttribute('transform', c);//右下角固定
-                RBS.setAttribute('transform', c);//右下角固定
-                HCR.setAttribute('transform', a);//右上角固定
-                WCT.setAttribute('transform', b);//左下角固定
-                frame1.setAttribute('width', fw);
-                frame1.setAttribute('height', fh);
-                frame2.setAttribute('width', fw);
-                frame2.setAttribute('height', fh);
-                frame3.setAttribute('width', fw);
-                frame3.setAttribute('height', fh);
-            </script>
+            
         </svg>
+    </div>
+    <div id="box-0" class="box-svg" style="position: absolute; top:0px; opacity: 0;">
+        <svg id="svg-0" width="100%" height="100%"  fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="G1-0">
+                <rect id="WC-0" y="34"  width="100%" height="32" fill="#66006688"/>
+                <rect id="HC-0" x="34"  width="32" height="100%" fill="#00666688" />
+                <path id="LT-0" x="0" y="0" d="M0 35V10C5.52285 10 10 5.52285 10 0H35V35H0Z"fill="#4444aa88" />
+                <path id="RT-0" d="M100 35V10C94.4771 10 90 5.52285 90 0H65V35H100Z" fill="#4444aa88"/>
+                <path id="RB-0"d="M100 65H65V100H90C90 94.4771 94.4771 90 100 90V65Z"fill="#4444aa88" />
+                <path id="LB-0" d="M35 100V65H0V90C5.52285 90 10 94.4771 10 100H35Z"fill="#4444aa88" />
+            </g>
+            
+            
+        </svg>
+        
     </div>
 
 </div>
-<div id="box-2" style="width: 430px; height: 220px; margin: 20px; position: relative;">
+<div id="box-2" style="width: 430px; height: 220px; margin: 20px; position: relative;" class="star-sky star-skys">
     <svg style="position: absolute; top:0px; z-index:0;" id="svg-2" width="100%" height="100%"  fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs> 
             <radialGradient id="grad1-2" cx="50%" cy="100%" r="100%" fx="50%" fy="50%">
@@ -369,3 +436,111 @@
     </div>
 </div>
 
+<script>
+    const root = document.documentElement;
+    wh()
+    function wh(){
+        var width = document.getElementById('slider');
+        var height = document.getElementById('slider2');
+        var ws = width.value;
+        var hs = height.value;
+        root.style.setProperty("--h",hs + 'px')
+        root.style.setProperty("--w",ws + 'px')
+        svg1()
+        svg2()
+
+        width.addEventListener('input', function(){
+            var ws = width.value;
+            root.style.setProperty("--w",ws + 'px')
+            svg1()
+            svg2()
+        });
+        
+        height.addEventListener('input', function(){
+            var hs = height.value;
+            root.style.setProperty("--h",hs + 'px')
+            svg1()
+            svg2()
+        });
+    }
+
+    function svg1(){
+        var box = document.getElementById('box-0')
+        var HC = document.getElementById('HC-0');
+        var WC = document.getElementById('WC-0');
+        var RT = document.getElementById('RT-0');
+        var LB = document.getElementById('LB-0');
+        var RB = document.getElementById('RB-0');
+        var w = box.offsetWidth - 100 ;//宽度拉伸差值 容器宽-svg初始宽
+        var h = box.offsetHeight - 100;//高度拉伸差值 容器高-svg初始高
+        var wf = box.offsetWidth - 68 ;//宽度填充值
+        var hf = box.offsetHeight - 68 ;//高度填充值
+        var a ='translate(' + w  +',0)';//向右偏移量
+        var b ='translate(0,' + h + ')';//向下偏移量
+        var c = 'translate(' + w +',' + h + ')';//向对角线偏移量 
+        HC.setAttribute('width', wf);
+        WC.setAttribute('height', hf);
+        RT.setAttribute('transform', a);//右上角固定
+        LB.setAttribute('transform', b);//左下角固定
+        RB.setAttribute('transform', c);//右下角固定
+    }
+
+    function svg2(){
+        var box = document.getElementById('box-1');
+        var frame1 = document.getElementById('frame1-1');
+        var frame2 = document.getElementById('frame2-1');
+        var frame3 = document.getElementById('frame3-1');
+        var HC = document.getElementById('HC-1');
+        var WC = document.getElementById('WC-1');
+        var RT = document.getElementById('RT-1');
+        var LB = document.getElementById('LB-1');
+        var RB = document.getElementById('RB-1');
+        var HCL = document.getElementById('HCL-1');
+        var HCR = document.getElementById('HCR-1');
+        var WCB = document.getElementById('WCB-1');
+        var WCT = document.getElementById('WCT-1');
+        var RTS = document.getElementById('RTS-1');
+        var LBS = document.getElementById('LBS-1');
+        var RBS = document.getElementById('RBS-1');
+        var w = box.offsetWidth - 100 ;//宽度拉伸差值 容器宽-svg初始宽
+        var h = box.offsetHeight - 100;//高度拉伸差值 容器高-svg初始高
+        var wf = box.offsetWidth - 68 ;//宽度填充值
+        var hf = box.offsetHeight - 68 ;//高度填充值
+        var fw = box.offsetWidth - 10;
+        var fh = box.offsetHeight - 10;
+        var a ='translate(' + w  +',0)';//向右偏移量
+        var b ='translate(0,' + h + ')';//向下偏移量
+        var c = 'translate(' + w +',' + h + ')';//向对角线偏移量 
+        HC.setAttribute('width', wf);
+        WCT.setAttribute('width', wf);
+        WCB.setAttribute('width', wf);
+        WC.setAttribute('height', hf);
+        HCL.setAttribute('height', hf);
+        HCR.setAttribute('height', hf);
+        RT.setAttribute('transform', a);//右上角固定
+        RTS.setAttribute('transform', a);//右上角固定
+        LB.setAttribute('transform', b);//左下角固定
+        LBS.setAttribute('transform', b);//左下角固定
+        RB.setAttribute('transform', c);//右下角固定
+        RBS.setAttribute('transform', c);//右下角固定
+        HCR.setAttribute('transform', a);//右上角固定
+        WCT.setAttribute('transform', b);//左下角固定
+        frame1.setAttribute('width', fw);
+        frame1.setAttribute('height', fh);
+        frame2.setAttribute('width', fw);
+        frame2.setAttribute('height', fh);
+        frame3.setAttribute('width', fw);
+        frame3.setAttribute('height', fh);
+    }
+
+    function see(){
+        var check = document.getElementById('chkbox-0');
+        if(check.checked){
+            document.getElementById('box-0').style.opacity = "1";
+            document.getElementById('box-1').style.opacity = "0.5";
+        } else {
+            document.getElementById('box-0').style.opacity = "0";
+            document.getElementById('box-1').style.opacity = "1";
+        }
+    }
+</script>
