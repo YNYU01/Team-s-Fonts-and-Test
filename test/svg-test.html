@@ -1,0 +1,371 @@
+<style>
+    :root{
+        --w:430px;
+        --h:150px;
+    }
+    body{
+        background-color: rgb(78, 78, 78);
+        font-family:FZJinLS-B-GB,Arial, Helvetica, sans-serif
+    }
+    .box-svg{
+        width: var(--w);
+        height: var(--h);
+    }
+
+    .box-inside{
+        width: 100%;
+        position: absolute; 
+        padding: 10px 0;
+        top:0px; 
+        z-index:10; 
+    }
+
+    .box-inside-h{
+        padding: 14px 0;
+        display: flex;
+    }
+
+    .box-inside-h-box{
+        cursor: default;
+    }
+
+    .title-tr{
+        width: 100%; 
+        text-align: center;
+        color: #D9E3FF;
+        font-size: 16px; 
+    }
+
+    .infoText{
+        display: flex;
+        justify-content: center;
+        font-size: 14px;
+        color: #ffffff;
+    }
+    .infoText-data{
+        color: #F1E1CE;
+    }
+
+    .liText-yellow{
+        width: 100%; 
+        color: #F1E1CE; 
+        margin-top: 8px;
+        font-size: 24px; 
+        text-shadow: 0 0 10px rgba(255, 196, 125, 0.48); 
+        text-align: center;
+    }
+
+     /* 隐藏range控件默认样式 */
+     [type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        width: 120px;
+    }
+ 
+    /* 定义range控件轨道的样式 */
+    [type="range"]::-webkit-slider-runnable-track {
+        height: 4px;
+        background: #eee;
+    }
+ 
+    /* 定义range控件容器的样式 */
+    [type="range" i]::-webkit-slider-container {
+        height: 20px;
+        overflow: hidden;
+    }
+ 
+    /* 定义range控件拇指的样式 */
+    [type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #726c8b;
+        border: 1px solid #ffffff;
+        margin-top: -8px;
+    }
+</style>
+
+<div style="padding: 0 40px; color: #ffffff; margin-top: 10px;">
+    svg自适应底框实现:
+</div>
+<div style="padding: 0 40px; color: #ffffff;margin-top: 10px; display: flex; align-items: center; gap: 10px;">
+    <label for="slider">宽度</label>
+    <input type="range" min="100" max="420" value="420" id="slider" class="slider">
+    <div style="width: 20px;"></div>
+    <label for="slider2">高度</label>
+    <input type="range" min="100" max="420" value="420" id="slider2" class="slider" >
+</div>
+<div style="position: relative; margin: 20px;">
+    <div id="box-0" class="box-svg" style="position: absolute; top:0px; opacity: 0;">
+        <svg id="svg-0" width="100%" height="100%"  fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="G1-0">
+                <rect id="WC-0" y="34"  width="100%" height="32" fill="#66006688"/>
+                <rect id="HC-0" x="34"  width="32" height="100%" fill="#00666688" />
+                <path id="LT-0" x="0" y="0" d="M0 35V10C5.52285 10 10 5.52285 10 0H35V35H0Z"fill="#4444aa88" />
+                <path id="RT-0" d="M100 35V10C94.4771 10 90 5.52285 90 0H65V35H100Z" fill="#4444aa88"/>
+                <path id="RB-0"d="M100 65H65V100H90C90 94.4771 94.4771 90 100 90V65Z"fill="#4444aa88" />
+                <path id="LB-0" d="M35 100V65H0V90C5.52285 90 10 94.4771 10 100H35Z"fill="#4444aa88" />
+            </g>
+            
+            <script type="text/javascript">
+                var box = document.getElementById('box-0')
+                var HC = document.getElementById('HC-0');
+                var WC = document.getElementById('WC-0');
+                var RT = document.getElementById('RT-0');
+                var LB = document.getElementById('LB-0');
+                var RB = document.getElementById('RB-0');
+                var w = box.offsetWidth - 100 ;//宽度拉伸差值 容器宽-svg初始宽
+                var h = box.offsetHeight - 100;//高度拉伸差值 容器高-svg初始高
+                var wf = box.offsetWidth - 68 ;//宽度填充值
+                var hf = box.offsetHeight - 68 ;//高度填充值
+                var a ='translate(' + w  +',0)';//向右偏移量
+                var b ='translate(0,' + h + ')';//向下偏移量
+                var c = 'translate(' + w +',' + h + ')';//向对角线偏移量 
+                HC.setAttribute('width', wf);
+                WC.setAttribute('height', hf);
+                RT.setAttribute('transform', a);//右上角固定
+                LB.setAttribute('transform', b);//左下角固定
+                RB.setAttribute('transform', c);//右下角固定
+            </script>
+        </svg>
+        
+    </div>
+
+    <div id="box-1" class="box-svg">
+        <svg id="svg-1" width="100%" height="100%"  fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs> 
+                <radialGradient id="grad1-1" cx="50%" cy="100%" r="100%" fx="50%" fy="50%">
+                    <stop offset="50%" style="stop-color:rgba(81, 60, 124, 0);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:rgb(21, 8, 46);stop-opacity:1" />
+                </radialGradient>
+                <radialGradient id="grad5-1" cx="50%" cy="0%" r="100%" fx="50%" fy="50%">
+                    <stop offset="50%" style="stop-color:rgba(186, 172, 224, 0);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:rgb(186, 172, 224);stop-opacity:1" />
+                </radialGradient>
+                <mask id="mask-basic1-1" x="0" y="0" width="100%" height="100%">
+                    <g fill="#ffffff">
+                        <rect id="WC-1" y="34"  width="100%" height="32" />
+                        <rect id="HC-1" x="34"  width="32" height="100%"  />
+                        <path id="LT-1" x="0" y="0" d="M0 35V10C5.52285 10 10 5.52285 10 0H35V35H0Z" />
+                        <path id="RT-1" d="M100 35V10C94.4771 10 90 5.52285 90 0H65V35H100Z" />
+                        <path id="RB-1"d="M100 65H65V100H90C90 94.4771 94.4771 90 100 90V65Z" />
+                        <path id="LB-1" d="M35 100V65H0V90C5.52285 90 10 94.4771 10 100H35Z" />
+                    </g>
+                </mask>
+                <linearGradient id="grad2-1" x1="0%" y1="0%" x2="100%" y2="80%">
+                    <stop offset="0%" style="stop-color:rgba(164, 127, 103, 0.984);stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:rgba(255, 243, 236, 0.284);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:rgba(254, 208, 185, 0.911);stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="grad3-1" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:rgb(17, 10, 52);stop-opacity:0.8" />
+                    <stop offset="100%" style="stop-color:rgb(140, 133, 196);stop-opacity:0.7" />
+                </linearGradient>
+                <linearGradient id="grad4-1" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:rgb(171, 127, 133);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:rgb(205, 200, 241);stop-opacity:1" />
+                </linearGradient>
+                <mask id="mask-basic2-1" x="0" y="0" width="100%" height="100%">
+                    <g fill="#ffffff" >
+                        <path id="LBS-1" d="M35 98H11.8341C10.991 92.975 7.02501 89.009 2 88.1659V65H0V90C5.52285 90 10 94.4771 10 100H35V98Z" />
+                        <path id="RBS-1" d="M98 88.1659V65H100V90C94.4771 90 90 94.4771 90 100H65V98H88.1659C89.0089 92.975 92.975 89.0089 98 88.1659Z" />
+                        <path id="RTS-1" d="M65 2H88.1659C89.009 7.02501 92.975 10.991 98 11.8341V35H100V10C94.4771 10 90 5.52285 90 0H65V2Z" />
+                        <path id="LTS-1" d="M35 0V2H11.8341C10.991 7.02501 7.02501 10.991 2 11.8341V35H0V10C5.52285 10 10 5.52285 10 0H35Z" />
+                        <rect id="HCL-1" y="35" width="2" height="30" />
+                        <rect id="WCT-1" x="35" y="98" width="30" height="2" />
+                        <rect id="HCR-1" x="98" y="35" width="2" height="30" />
+                        <rect id="WCB-1" x="35" width="30" height="2" /> 
+                    </g> 
+                </mask>
+            </defs>
+            
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#grad2-1)" mask="url(#mask-basic2-1)"/>
+            <rect id="frame2-1" x="5" y="5" width="90" height="90" fill="url(#grad1-1)" />
+            <rect id="frame3-1" x="5" y="5" width="90" height="90" fill="url(#grad5-1)" />
+            <rect id="frame1-1" x="5" y="5" width="90" height="90" fill="url(#grad3-1)" stroke="url(#grad4-1)" stroke-width="1"/>
+            <script type="text/javascript">
+                var box = document.getElementById('box-1');
+                var frame1 = document.getElementById('frame1-1');
+                var frame2 = document.getElementById('frame2-1');
+                var frame3 = document.getElementById('frame3-1');
+                var HC = document.getElementById('HC-1');
+                var WC = document.getElementById('WC-1');
+                var RT = document.getElementById('RT-1');
+                var LB = document.getElementById('LB-1');
+                var RB = document.getElementById('RB-1');
+                var HCL = document.getElementById('HCL-1');
+                var HCR = document.getElementById('HCR-1');
+                var WCB = document.getElementById('WCB-1');
+                var WCT = document.getElementById('WCT-1');
+                var RTS = document.getElementById('RTS-1');
+                var LBS = document.getElementById('LBS-1');
+                var RBS = document.getElementById('RBS-1');
+                var w = box.offsetWidth - 100 ;//宽度拉伸差值 容器宽-svg初始宽
+                var h = box.offsetHeight - 100;//高度拉伸差值 容器高-svg初始高
+                var wf = box.offsetWidth - 68 ;//宽度填充值
+                var hf = box.offsetHeight - 68 ;//高度填充值
+                var fw = box.offsetWidth - 10;
+                var fh = box.offsetHeight - 10;
+                var a ='translate(' + w  +',0)';//向右偏移量
+                var b ='translate(0,' + h + ')';//向下偏移量
+                var c = 'translate(' + w +',' + h + ')';//向对角线偏移量 
+                HC.setAttribute('width', wf);
+                WCT.setAttribute('width', wf);
+                WCB.setAttribute('width', wf);
+                WC.setAttribute('height', hf);
+                HCL.setAttribute('height', hf);
+                HCR.setAttribute('height', hf);
+                RT.setAttribute('transform', a);//右上角固定
+                RTS.setAttribute('transform', a);//右上角固定
+                LB.setAttribute('transform', b);//左下角固定
+                LBS.setAttribute('transform', b);//左下角固定
+                RB.setAttribute('transform', c);//右下角固定
+                RBS.setAttribute('transform', c);//右下角固定
+                HCR.setAttribute('transform', a);//右上角固定
+                WCT.setAttribute('transform', b);//左下角固定
+                frame1.setAttribute('width', fw);
+                frame1.setAttribute('height', fh);
+                frame2.setAttribute('width', fw);
+                frame2.setAttribute('height', fh);
+                frame3.setAttribute('width', fw);
+                frame3.setAttribute('height', fh);
+            </script>
+        </svg>
+    </div>
+
+</div>
+<div id="box-2" style="width: 430px; height: 220px; margin: 20px; position: relative;">
+    <svg style="position: absolute; top:0px; z-index:0;" id="svg-2" width="100%" height="100%"  fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs> 
+            <radialGradient id="grad1-2" cx="50%" cy="100%" r="100%" fx="50%" fy="50%">
+                <stop offset="50%" style="stop-color:rgba(81, 60, 124, 0);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:rgb(21, 8, 46);stop-opacity:1" />
+            </radialGradient>
+            <radialGradient id="grad5-2" cx="50%" cy="0%" r="100%" fx="50%" fy="50%">
+                <stop offset="50%" style="stop-color:rgba(186, 172, 224, 0);stop-opacity:0.4" />
+                <stop offset="100%" style="stop-color:rgb(186, 172, 224);stop-opacity:0.4" />
+            </radialGradient>
+            <mask id="mask-basic1-2" x="0" y="0" width="100%" height="100%">
+                <g fill="#ffffff">
+                    <rect id="WC-2" y="34"  width="100%" height="32" />
+                    <rect id="HC-2" x="34"  width="32" height="100%"  />
+                    <path id="LT-2" x="0" y="0" d="M0 35V10C5.52285 10 10 5.52285 10 0H35V35H0Z" />
+                    <path id="RT-2" d="M100 35V10C94.4771 10 90 5.52285 90 0H65V35H100Z" />
+                    <path id="RB-2"d="M100 65H65V100H90C90 94.4771 94.4771 90 100 90V65Z" />
+                    <path id="LB-2" d="M35 100V65H0V90C5.52285 90 10 94.4771 10 100H35Z" />
+                </g>
+            </mask>
+            <linearGradient id="grad2-2" x1="0%" y1="0%" x2="100%" y2="80%">
+                <stop offset="0%" style="stop-color:rgba(164, 127, 103, 0.984);stop-opacity:1" />
+                <stop offset="50%" style="stop-color:rgba(255, 243, 236, 0.284);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:rgba(254, 208, 185, 0.911);stop-opacity:1" />
+            </linearGradient>
+            <linearGradient id="grad3-2" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:rgb(17, 10, 52);stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:rgb(140, 133, 196);stop-opacity:0.6" />
+            </linearGradient>
+            <linearGradient id="grad4-2" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:rgb(171, 127, 133);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:rgb(205, 200, 241);stop-opacity:1" />
+            </linearGradient>
+            <mask id="mask-basic2-2" x="0" y="0" width="100%" height="100%">
+                <g fill="#ffffff" >
+                    <path id="LBS-2" d="M35 98H11.8341C10.991 92.975 7.02501 89.009 2 88.1659V65H0V90C5.52285 90 10 94.4771 10 100H35V98Z" />
+                    <path id="RBS-2" d="M98 88.1659V65H100V90C94.4771 90 90 94.4771 90 100H65V98H88.1659C89.0089 92.975 92.975 89.0089 98 88.1659Z" />
+                    <path id="RTS-2" d="M65 2H88.1659C89.009 7.02501 92.975 10.991 98 11.8341V35H100V10C94.4771 10 90 5.52285 90 0H65V2Z" />
+                    <path id="LTS-2" d="M35 0V2H11.8341C10.991 7.02501 7.02501 10.991 2 11.8341V35H0V10C5.52285 10 10 5.52285 10 0H35Z" />
+                    <rect id="HCL-2" y="35" width="2" height="30" />
+                    <rect id="WCT-2" x="35" y="98" width="30" height="2" />
+                    <rect id="HCR-2" x="98" y="35" width="2" height="30" />
+                    <rect id="WCB-2" x="35" width="30" height="2" /> 
+                </g> 
+            </mask>
+        </defs>
+        
+        <rect x="0" y="0" width="100%" height="100%" fill="url(#grad2-2)" mask="url(#mask-basic2-2)"/>
+        <rect id="frame2-2" x="5" y="5" width="90" height="90" fill="url(#grad1-2)" />
+        <rect id="frame3-2" x="5" y="5" width="90" height="90" fill="url(#grad5-2)" />
+        <rect id="frame1-2" x="5" y="5" width="90" height="90" fill="url(#grad3-2)" stroke="url(#grad4-2)" stroke-width="1"/>
+        <script type="text/javascript">
+            var box = document.getElementById('box-2');
+            var frame1 = document.getElementById('frame1-2');
+            var frame2 = document.getElementById('frame2-2');
+            var frame3 = document.getElementById('frame3-2');
+            var HC = document.getElementById('HC-2');
+            var WC = document.getElementById('WC-2');
+            var RT = document.getElementById('RT-2');
+            var LB = document.getElementById('LB-2');
+            var RB = document.getElementById('RB-2');
+            var HCL = document.getElementById('HCL-2');
+            var HCR = document.getElementById('HCR-2');
+            var WCB = document.getElementById('WCB-2');
+            var WCT = document.getElementById('WCT-2');
+            var RTS = document.getElementById('RTS-2');
+            var LBS = document.getElementById('LBS-2');
+            var RBS = document.getElementById('RBS-2');
+            var w = box.offsetWidth - 100 ;//宽度拉伸差值 容器宽-svg初始宽
+            var h = box.offsetHeight - 100;//高度拉伸差值 容器高-svg初始高
+            var wf = box.offsetWidth - 68 ;//宽度填充值
+            var hf = box.offsetHeight - 68 ;//高度填充值
+            var fw = box.offsetWidth - 10;
+            var fh = box.offsetHeight - 10;
+            var a ='translate(' + w  +',0)';//向右偏移量
+            var b ='translate(0,' + h + ')';//向下偏移量
+            var c = 'translate(' + w +',' + h + ')';//向对角线偏移量 
+            HC.setAttribute('width', wf);
+            WCT.setAttribute('width', wf);
+            WCB.setAttribute('width', wf);
+            WC.setAttribute('height', hf);
+            HCL.setAttribute('height', hf);
+            HCR.setAttribute('height', hf);
+            RT.setAttribute('transform', a);//右上角固定
+            RTS.setAttribute('transform', a);//右上角固定
+            LB.setAttribute('transform', b);//左下角固定
+            LBS.setAttribute('transform', b);//左下角固定
+            RB.setAttribute('transform', c);//右下角固定
+            RBS.setAttribute('transform', c);//右下角固定
+            HCR.setAttribute('transform', a);//右上角固定
+            WCT.setAttribute('transform', b);//左下角固定
+            frame1.setAttribute('width', fw);
+            frame1.setAttribute('height', fh);
+            frame2.setAttribute('width', fw);
+            frame2.setAttribute('height', fh);
+            frame3.setAttribute('width', fw);
+            frame3.setAttribute('height', fh);
+        </script>
+    </svg>
+    <div class="box-inside">
+        <div class="box-inside-h" style="justify-content:space-evenly;">
+            <div class="box-inside-h-box" >
+                <div class="title-tr"> 本赛季副本总战斗</div>
+                <div class="liText-yellow" >XXXX<span class="infoText-data" style="font-size: 18px;">次</span></div>
+            </div>
+            <div class="box-inside-h-box" >
+                <div class="title-tr"> 本赛季副本挑战偏好</div>
+                <div class="liText-yellow" >组队挑战</div>
+                <div class="infoText"> 与 <span class="infoText-data"> &nbsp;XX%&nbsp;</span>玩家相同</div>
+            </div>
+        </div>
+        <div class="box-inside-h" style="justify-content:space-evenly;">
+            <div class="box-inside-h-box" >
+                <div class="title-tr"> 团本单局最高伤害</div>
+                <div class="liText-yellow" >XX.X<span class="infoText-data" style="font-size: 18px;">万</span></div>
+                <div class="infoText"> 超过全服 <span class="infoText-data"> &nbsp;XX%素问&nbsp;</span></div>
+            </div>
+            <div class="box-inside-h-box" >
+                <div class="title-tr"> 团本单局最高治疗</div>
+                <div class="liText-yellow" >XXXX.X<span class="infoText-data" style="font-size: 18px;">万</span></div>
+                <div class="infoText"> 超过全服 <span class="infoText-data"> &nbsp;XX%素问&nbsp;</span></div>
+            </div>
+            <div class="box-inside-h-box" >
+                <div class="title-tr"> 团本单局最高承伤</div>
+                <div class="liText-yellow" >XXX.X<span class="infoText-data" style="font-size: 18px;">万</span></div>
+                <div class="infoText"> 超过全服 <span class="infoText-data"> &nbsp;XX%素问&nbsp;</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
