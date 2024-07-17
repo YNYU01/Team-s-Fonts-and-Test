@@ -1,0 +1,294 @@
+<style>
+    :root{
+        --color:#444;
+        --mainColor:#444;
+        --pdLR:10px;
+        --pdTB:10px;
+    }
+
+    .bg{
+        
+        position: absolute; 
+        top: 50%; 
+        left: 50%; 
+        transform: translate(-50%,-50%); 
+        z-index: -1;
+    }
+
+     /* 隐藏range控件默认样式 */
+     [type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        width: 80px;
+    }
+ 
+    /* 定义range控件轨道的样式 */
+    [type="range"]::-webkit-slider-runnable-track {
+        height: 4px;
+        background: #eee;
+    }
+ 
+    /* 定义range控件容器的样式 */
+    [type="range" i]::-webkit-slider-container {
+        height: 20px;
+        overflow: hidden;
+    }
+ 
+    /* 定义range控件拇指的样式 */
+    [type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: var(--mainColor);
+        margin-top: -8px;
+    }
+
+    .tags-chkbox{
+            position: relative;
+            display: block;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1px solid var(--mainColor);
+            cursor: pointer;
+        }
+
+    input[type="checkbox"]:checked + .tags-chkbox::before {
+        content: "";
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background-color: var(--mainColor);
+        top: 2px;
+        left: 2px;
+    }
+
+    .box-inside{ 
+        padding: 10px 0;
+        top:0px; 
+    }
+
+    .box-inside-h{
+        padding: 14px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .box-inside-h-box{
+        cursor: default;
+    }
+
+    .title-tr{       
+        text-align: center;
+        color: #000000;
+        font-size: 16px; 
+    }
+
+    .infoText{
+        display: flex;
+        justify-content: center;
+        font-size: 14px;
+        color: #000000;
+    }
+    .infoText-data{
+        color: #bc6800;
+    }
+
+    .liText-yellow{
+        color: #bc6800; 
+        margin-top: 8px;
+        font-size: 24px; 
+        text-align: center;
+    }
+
+    .txts{
+        display: block;
+    }
+    
+
+</style>
+
+<div style="color: #000000;margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 4px;">
+    <label for="slider">左右边距</label>
+    <input type="range" min="0" max="30" value="10" id="slider" >
+    <div style="width: 20px;"></div>
+    <label for="slider2">上下边距</label>
+    <input type="range" min="0" max="30" value="4" id="slider2" >
+    <div style="width: 20px;"></div>
+    <label for="slider3">缩放</label>
+    <input type="range" min="40" max="100" value="50" id="slider3" >
+    <div style="width: 20px;"></div>
+</div>
+<div style="color: #000000;margin-top: 10px; display: flex; justify-content: center; align-items: center; gap:10px;">
+    <input id="txts"  type="text" placeholder="文案文案文案" oninput="changeTxt()"  onKeyPress="if(window.event.keyCode==13) this.blur()"/>
+    <div style="display: flex; gap: 4px;">
+        <div style="width: 20px; height: 20px;">
+            <input type="checkbox" id="chkbox-0" style="display: none;" onchange="see()">
+            <label for="chkbox-0" class="tags-chkbox"> </label>
+        </div> 
+        <div style="line-height: 18px;"> 多模块 </div>
+        
+    </div>
+</div>
+<div style="height: 20px;"></div>
+
+<div style=" display: flex; flex-direction: column; gap: 10px;justify-content: center; align-items: center;position: relative;">
+    <div style=" font-size: 24px;position: relative;color: var(--color);">
+        <span class="txts">文案文案文案</span>
+        <div class="bg" > </div>
+    </div>
+</div>
+
+<div style="height: 20px;"></div>
+
+<div style=" display: flex; flex-direction: column; gap: 10px;justify-content: center; align-items: center;position: relative;">
+    <div style=" font-size: 24px;position: relative;color: var(--color);" class="box-inside">
+        <div class="box-inside-h" style="justify-content:space-evenly;gap: 10px;">
+            <div class="box-inside-h-box" >
+                <div class="title-tr"> 本赛季副本总战斗</div>
+                <div class="liText-yellow "  style="display: flex; justify-content: center;align-items: center;"><span class="txts">XXXX</span><span class="infoText-data" style="font-size: 18px;">次</span></div>
+            </div>
+            <div class="box-inside-h-box" >
+                <div class="title-tr"> 本赛季副本挑战偏好</div>
+                <div class="liText-yellow" >组队挑战</div>
+                <div class="infoText"> 与 <span class="infoText-data"> &nbsp;XX%&nbsp;</span>玩家相同</div>
+            </div>
+            <div class="box-inside-h-box" >
+                <div class="title-tr"> 本赛季副本总战斗</div>
+                <div class="liText-yellow "  style="display: flex; justify-content: center;align-items: center;"><span class="txts">XXXX</span><span class="infoText-data" style="font-size: 18px;">次</span></div>
+            </div>
+        </div>
+        <div id="add" class="box-inside-h" style="justify-content:space-evenly; gap: 10px; display: none;">
+            <div class="box-inside-h-box" >
+                <div class="title-tr"> 团本单局最高伤害</div>
+                <div class="liText-yellow" >XX.X<span class="infoText-data" style="font-size: 18px;">万</span></div>
+                <div class="infoText"> 超过全服 <span class="infoText-data"> &nbsp;XX%素问&nbsp;</span></div>
+            </div>
+            <div class="box-inside-h-box" >
+                <div class="title-tr"> 团本单局最高治疗</div>
+                <div class="liText-yellow" >XXXX.X<span class="infoText-data" style="font-size: 18px;">万</span></div>
+                <div class="infoText"> 超过全服 <span class="infoText-data"> &nbsp;XX%素问&nbsp;</span></div>
+            </div>
+            <div class="box-inside-h-box" >
+                <div class="title-tr"> 团本单局最高承伤</div>
+                <div class="liText-yellow" >XXX.X<span class="infoText-data" style="font-size: 18px;">万</span></div>
+                <div class="infoText"> 超过全服 <span class="infoText-data"> &nbsp;XX%素问&nbsp;</span></div>
+            </div>
+        </div>
+        <div class="bg" > </div>
+    </div>
+</div>
+
+<div id="log1"></div>
+<script>
+    const root = document.documentElement;
+
+    //九宫切割，两横两竖，决定四个角落宽高，正数表示距左上角，负数表示用宽/高减去该值，如右上角的宽是100，距左上角就是W-100;scl控制缩放比例
+    const sX1 = 35,
+          sX2 = -35,
+          sY1 = 35,
+          sY2 = -35;
+    const bgall = document.getElementsByClassName('bg'),
+          txtall = document.getElementsByClassName('txts');
+    
+
+    window.onload = function(){
+        changeSvg()
+        for (i=0;i< txtall.length; i++){
+            txtall[i].id = 'txt-' + i
+        }
+    }
+    function changeSvg(){
+            var ws = document.getElementById('slider').value;
+            var hs = document.getElementById('slider2').value;
+            var scl = document.getElementById('slider3').value / 100
+            root.style.setProperty("--LR",ws + 'px');
+            root.style.setProperty("--TB",hs + 'px');
+
+            
+            for (i=0;i< bgall.length; i++){
+                bgall[i].id = 'bg-' + i;
+                var bg = document.getElementById('bg-' + i);
+                var bgFa = bg.parentNode;
+                bgFa.id = 'bgFa-' + i;
+                document.getElementById('bgFa-' + i).style.padding = 'var(--TB) var(--LR)'
+                document.getElementById('bgFa-' + i).style.minHeight = sY1/2
+                bg.style.width = bgFa.offsetWidth + 'px';
+                bg.style.height = bgFa.offsetHeight + 'px';           
+                addsvg(bgFa.offsetWidth,bgFa.offsetHeight,i,scl)
+            }
+            
+        }
+
+        document.getElementById('slider').addEventListener('input', function(){
+            changeSvg()   
+        });
+            
+        document.getElementById('slider2').addEventListener('input', function(){
+            changeSvg()
+        });
+
+        document.getElementById('slider3').addEventListener('input', function(){
+            changeSvg()
+        });
+
+    function addsvg(w,h,n,scl){    
+        var BEG = '<svg id="svg-'+ n +'" width="100%" height="100%"  fill="none" xmlns="http://www.w3.org/2000/svg"><g id="G1-'+ n +'" fill=var(--color)>';
+        // 九宫切割，左上角逆时针算起，L=左；R=右；T=顶；B=底；C=中,
+        var LT = '<path id="LT-'+ n +'" d="M35 0V2H11.8341C10.991 7.02501 7.02501 10.991 2 11.8341V35H0V10C5.52285 10 10 5.52285 10 0H35Z"/>';
+        var T = '<rect id="T-'+ n +'" height="2" />';
+        var RT = '<path id="RT-'+ n +'" d="M0 2H23.1659C24.009 7.02501 27.975 10.991 33 11.8341V35H35V10C29.4771 10 25 5.52285 25 0H0V2Z"/>';
+        var R = '<rect id="R-'+ n +'" width="2" />';
+        var RB = '<path id="RB-'+ n +'" d="M33 23.1659V0H35V25C29.4771 25 25 29.4771 25 35H0V33H23.1659C24.0089 27.975 27.975 24.0089 33 23.1659Z"/>';
+        var B = '<rect id="B-'+ n +'"height="2" />';
+        var LB = '<path id="LB-'+ n +'" d="M35 33H11.8341C10.991 27.975 7.02501 24.009 2 23.1659V0H0V25C5.52285 25 10 29.4771 10 35H35V33Z"/>';
+        var L = '<rect id="L-'+ n +'" width="2" />';
+        var C = '';
+        var END = '</svg>' ;
+        var WR = w/scl - sX1  + sX2 ;
+        var HB = h/scl - sY1  + sY2 ;
+        document.getElementById('bg-' + n).innerHTML = BEG + LT + T + RT + R + RB + B + LB + L + C + END;
+        document.getElementById('LT-'+ n).setAttribute('transform', 'scale(' + scl +')');
+        document.getElementById('T-'+ n).setAttribute('transform','translate(' + sX1*scl + ',0),scale(' + scl +')');
+        document.getElementById('T-'+ n).setAttribute('width',WR);
+        document.getElementById('RT-'+ n).setAttribute('transform', 'translate(' + (w + sX2*scl)  +',0),scale(' + scl +')');
+        document.getElementById('R-'+ n).setAttribute('transform','translate(' + (w - 2*scl) + ',' + sY1*scl + '),scale(' + scl +')');
+        document.getElementById('R-'+ n).setAttribute('height', HB);
+        document.getElementById('RB-'+ n).setAttribute('transform', 'translate(' + (w + sX2*scl)  + ',' + (h + sY2*scl) + '),scale(' + scl +')');
+        document.getElementById('B-'+ n).setAttribute('transform','translate(' + sX1*scl + ',' + (h - 2*scl)  + '),scale(' + scl +')');
+        document.getElementById('B-'+ n).setAttribute('width',WR);
+        document.getElementById('LB-'+ n).setAttribute('transform', 'translate(0,' + (h + sY2*scl)  +'),scale(' + scl +')');
+        document.getElementById('L-'+ n).setAttribute('transform','translate(0,' + sY1*scl + '),scale(' + scl +')');
+        document.getElementById('L-'+ n).setAttribute('height', HB);
+    }
+
+    function changeTxt() {
+        for (e=0;e< txtall.length; e++){
+            var txts = document.getElementById('txts')
+
+            if (txts.value !== ''){
+                    document.getElementById('txt-' + e).innerHTML = txts.value
+                    changeSvg()
+            } else {
+                    document.getElementById('txt-' + e).innerHTML = '文案文案文案'
+                    changeSvg()
+            }
+        }
+    }
+    
+    function see(){
+        var check = document.getElementById('chkbox-0');
+        if(check.checked){
+            document.getElementById('add').style.display= "flex";
+            changeSvg()
+        } else {
+            document.getElementById('add').style.display= "none";
+            changeSvg()
+        }
+    }
+  
+</script>
