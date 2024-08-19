@@ -6,7 +6,10 @@
         --cM:-200px;/*方块行上下间距，默认设计*/
         --csN:4;/*列数，默认设计*/
         --csW:612px;/*单地块组宽度，默认设计*/ 
+        --csH:512px;/*单地块组高度，默认设计*/ 
         --csM:calc(var(--csW)/6 * -1);/*地块列间距*/
+        --csTop:250px;/*默认地块错位间距*/
+        --csaM:calc((1294px - (var(--csH)*2 + var(--csTop)))/2);/*自动居中(默认高度-地块组总高度)/2*/ 
         --bgW:calc(var(--csW)*var(--csN) + var(--csM)*(var(--csN) - 1)  + var(--vW) - var(--csW));/*背景宽度=所有地块组总宽度（含间距）+页面宽度-单地块组宽度*/
         --pgN:0;/*初始页数*/
         --bgM:calc((var(--csW) + var(--csM))*var(--pgN)*-1);/*背景移动*/
@@ -66,12 +69,16 @@
 </style>
 
 <body>
-    <div style="width: 750px; color: #000000;margin-top: 10px; display: flex; justify-content: left; align-items: center; gap: 4px;font-size: 14px;font-weight: 500; padding: 10px; margin: 10px;">
-        <label for="slider3">页面宽度</label>
+    <div style="width: 750px; color: #000000;margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: left; align-items: center; gap: 4px;font-size: 14px;font-weight: 500; padding: 10px; margin: 10px;">
+        <label for="slider1">页面宽度</label>
         <input type="range" min="650" max="900" value="750" id="slider1" oninput="vWchange()" >
         <div style="width: 20px;"></div>
-        <label for="slider3">地块间距</label>
-        <input type="range" min="20" max="100" value="60" id="slider2" oninput="csMchange()" >
+        <label for="slider2">地块列间距</label>
+        <input type="range" min="20" max="200" value="60" id="slider2" oninput="csMchange()" >
+        <div style="width: 20px;"></div>
+        <div style="width: 100%;"></div>
+        <label for="slider3">错位行间距</label>
+        <input type="range" min="0" max="250" value="250" id="slider3" oninput="csTopchange()" >
         <div style="width: 20px;"></div>
         <button id="leftBtn">上一页</button>
         <button id="rightBtn">下一页</button>
@@ -111,21 +118,23 @@
                     <div style="position: absolute;left: calc((var(--vW) - var(--csW))*-0.5); width: var(--bgW); height: 1448px; background-image: url('https://raw.githubusercontent.com/YNYU01/Team-s-Fonts-and-Test/main/img/cube-bg-c.png');background-position: var(--bgM) 0;"></div>
                     <div style="position: absolute;left: calc((var(--vW) - var(--csW))*-0.5); width: 750px; height: 1448px; background-image:url('https://raw.githubusercontent.com/YNYU01/Team-s-Fonts-and-Test/main/img/cube-bg-l.png') ;background-repeat: no-repeat; "></div>
                     <div style="position: absolute; left: calc(var(--bgW) - 750px - (var(--vW) - var(--csW))/2); width: 750px; height: 1448px; background-image:url('https://raw.githubusercontent.com/YNYU01/Team-s-Fonts-and-Test/main/img/cube-bg-r.png') ;background-repeat: no-repeat; "></div>
-                    <div style="z-index: 2;">
-                        <cs-a></cs-a>
-                        <cs-a></cs-a>
-                    </div>
-                    <div style="margin: 250px 0 0 var(--csM);z-index: 2;">
-                        <cs-a></cs-a>
-                        <cs-a></cs-a>
-                    </div>
-                    <div style="margin: 0 0 0 var(--csM);z-index: 2;">
-                        <cs-a></cs-a>
-                        <cs-a></cs-a>
-                    </div>
-                    <div style="margin: 250px 0 0 var(--csM);z-index: 2;">
-                        <cs-a></cs-a>
-                        <cs-a></cs-a>
+                    <div style="margin-top: var(--csaM);display: flex; position: relative;">
+                        <div style="z-index: 2;">
+                            <cs-a></cs-a>
+                            <cs-a></cs-a>
+                        </div>
+                        <div style="margin: var(--csTop) 0 0 var(--csM);z-index: 2;">
+                            <cs-a></cs-a>
+                            <cs-a></cs-a>
+                        </div>
+                        <div style="margin: 0 0 0 var(--csM);z-index: 2;">
+                            <cs-a></cs-a>
+                            <cs-a></cs-a>
+                        </div>
+                        <div style="margin: var(--csTop) 0 0 var(--csM);z-index: 2;">
+                            <cs-a></cs-a>
+                            <cs-a></cs-a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -253,13 +262,17 @@
 
     function vWchange(){
         var newW = document.getElementById('slider1').value;
-        var w = (newW - 750)/750
         root.style.setProperty("--vW",newW + "px")
     }
 
     function csMchange(){
         var newM = document.getElementById('slider2').value/10;
         root.style.setProperty("--csM",'calc(var(--csW)/'+ newM + ' * -1)');
+    }
+
+    function csTopchange(){
+        var newW = document.getElementById('slider3').value;
+        root.style.setProperty("--csTop",newW + "px")
     }
 
     leftRight()
